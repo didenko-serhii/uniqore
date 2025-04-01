@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils'
-import { motion } from 'motion/react'
 import Image from 'next/image'
-export const Logo = ({ className }: { className?: string }) => {
+export const Logo = () => {
   return (
     <Image
       width={28}
