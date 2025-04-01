@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Settings2, Sparkles, Zap } from 'lucide-react'
 import { ReactNode } from 'react'
 
-export default function Features() {
+export const Features = () => {
   return (
     <section className='bg-zinc-50 py-16 md:py-32 dark:bg-transparent'>
       <div className='@container mx-auto max-w-5xl px-6'>

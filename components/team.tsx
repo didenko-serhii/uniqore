@@ -18,7 +18,7 @@ const members = [
   },
 ]
 
-export default function TeamSection() {
+export const TeamSection = () => {
   return (
     <section className='py-12 md:py-24'>
       <div className='mx-auto max-w-3xl px-8 lg:px-0'>

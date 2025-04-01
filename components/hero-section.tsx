@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { ChevronRight, SparkleIcon, Sparkles } from 'lucide-react'
+import { SparkleIcon, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { TextEffect } from '@/components/ui/text-effect'
@@ -26,7 +26,7 @@ const transitionVariants = {
   },
 }
 
-export default function HeroSection() {
+export const HeroSection = () => {
   return (
     <>
       <main className='overflow-hidden'>

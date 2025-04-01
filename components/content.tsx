@@ -1,8 +1,4 @@
-import { Button } from '@/components/ui/button'
-import { ChevronRight } from 'lucide-react'
-import Link from 'next/link'
-
-export default function ContentSection() {
+export const ContentSection = () => {
   return (
     <section className='py-16 md:py-32'>
       <div className='mx-auto max-w-5xl px-6'>
