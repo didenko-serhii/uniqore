@@ -14,7 +14,7 @@ const members = [
   {
     name: 'Niharika',
     role: 'PM & Tester',
-    avatar: '',
+    avatar: '/serhii.png',
   },
 ]
 

@@ -66,6 +66,7 @@ export const HeroSection = () => {
               }}
               className='absolute inset-0 -z-20'>
               <Image
+                loading='lazy'
                 src='https://res.cloudinary.com/dg4jhba5c/image/upload/v1741605538/night-background_ni3vqb.jpg'
                 alt='background'
                 className='absolute inset-x-0 top-56 -z-20 hidden lg:top-32 dark:block'
@@ -172,6 +173,7 @@ export const HeroSection = () => {
                 />
                 <div className='inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1'>
                   <Image
+                    loading='lazy'
                     className='bg-background aspect-15/8 relative hidden rounded-2xl dark:block'
                     src='/hero.png'
                     alt='app screen'
@@ -179,6 +181,7 @@ export const HeroSection = () => {
                     height='1440'
                   />
                   <Image
+                    loading='lazy'
                     className='z-2 border-border/25 aspect-15/8 relative rounded-2xl border dark:hidden'
                     src='/hero.png'
                     alt='app screen'
