@@ -152,7 +152,7 @@ export default function FooterSection() {
         </div>
         <span className='text-muted-foreground block text-center text-sm'>
           {' '}
-          © {new Date().getFullYear()} Centria-Hub, All rights reserved
+          © {new Date().getFullYear()} Uniqore, All rights reserved
         </span>
       </div>
     </footer>

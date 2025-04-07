@@ -4,9 +4,9 @@ export const Logo = () => {
   return (
     <Image
       loading='lazy'
-      width={28}
-      height={28}
-      src='/logo.svg'
+      width={36}
+      height={36}
+      src='/logo.png'
       alt='logo'
     />
   )
