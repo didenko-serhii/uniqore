@@ -62,7 +62,7 @@ export default function SinglePost() {
       {/* Content card that overlaps the image */}
       <div className='relative mx-auto max-w-4xl px-4 sm:px-6 -mt-24'>
         <motion.div
-          className='dark:bg-slate-900 bg-slate-100 rounded-lg shadow-xl p-6 md:p-8 lg:p-10'
+          className='dark:bg-slate-900 bg-slate-100 rounded-lg shadow-[0_0_25px_rgba(0,0,0,0.15)] p-6 md:p-8 lg:p-10'
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
