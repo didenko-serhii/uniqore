@@ -1,6 +1,6 @@
 'use client'
-import { ReactNode } from 'react'
-import { motion, Variants } from 'motion/react'
+import { ReactNode, ElementType } from 'react'
+import { motion, Variants, MotionProps } from 'framer-motion'
 import React from 'react'
 
 export type PresetType =
@@ -14,18 +14,6 @@ export type PresetType =
   | 'bounce'
   | 'rotate'
   | 'swing'
-
-export type AnimatedGroupProps = {
-  children: ReactNode
-  className?: string
-  variants?: {
-    container?: Variants
-    item?: Variants
-  }
-  preset?: PresetType
-  as?: React.ElementType
-  asChild?: React.ElementType
-}
 
 const defaultContainerVariants: Variants = {
   visible: {
@@ -100,13 +88,26 @@ const addDefaultVariants = (variants: Variants) => ({
   visible: { ...defaultItemVariants.visible, ...variants.visible },
 })
 
-function AnimatedGroup({
+type AnimatedGroupProps = {
+  children: ReactNode
+  className?: string
+  variants?: {
+    container?: Variants
+    item?: Variants
+  }
+  preset?: PresetType
+  as?: ElementType
+  asChild?: ElementType
+} & MotionProps
+
+export function AnimatedGroup({
   children,
   className,
   variants,
   preset,
   as = 'div',
   asChild = 'div',
+  ...rest
 }: AnimatedGroupProps) {
   const selectedVariants = {
     item: addDefaultVariants(preset ? presetVariants[preset] : {}),
@@ -115,21 +116,16 @@ function AnimatedGroup({
   const containerVariants = variants?.container || selectedVariants.container
   const itemVariants = variants?.item || selectedVariants.item
 
-  const MotionComponent = React.useMemo(
-    () => motion[as as keyof typeof motion] || motion.div,
-    [as]
-  )
-  const MotionChild = React.useMemo(
-    () => motion[asChild as keyof typeof motion] || motion.div,
-    [asChild]
-  )
+  const MotionComponent = motion(as)
+  const MotionChild = motion(asChild)
 
   return (
     <MotionComponent
       initial='hidden'
       animate='visible'
       variants={containerVariants}
-      className={className}>
+      className={className}
+      {...rest}>
       {React.Children.map(children, (child, index) => (
         <MotionChild
           key={index}
@@ -140,5 +136,3 @@ function AnimatedGroup({
     </MotionComponent>
   )
 }
-
-export { AnimatedGroup }
