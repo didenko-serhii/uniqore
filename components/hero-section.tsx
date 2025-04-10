@@ -45,7 +45,7 @@ export const HeroSection = ({
   return (
     <div
       ref={heroRef}
-      className='relative w-full h-[90vh] overflow-hidden flex items-center justify-center'
+      className='relative w-full h-screen overflow-hidden flex items-center justify-center'
       style={{
         background: `linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.75)), url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -101,7 +101,7 @@ export const HeroSection = ({
                 }}>
                 <span
                   className={`text-7xl md:text-9xl font-black tracking-tight ${
-                    index === 3 ? 'text-rose-500' : 'text-white'
+                    index === 3 ? 'text-[#e73f2f]' : 'text-white'
                   }`}
                   style={{
                     textShadow:
@@ -121,7 +121,7 @@ export const HeroSection = ({
 
           {/* Glowing line under the title */}
           <motion.div
-            className='h-1 bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 rounded-full mx-auto mt-6'
+            className='h-1 bg-gradient-to-r from-[#e73f2f] via-purple-500 to-blue-500 rounded-full mx-auto mt-6'
             initial={{ width: 0, opacity: 0 }}
             animate={{ width: '80%', opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
@@ -150,12 +150,17 @@ export const HeroSection = ({
           transition={{ duration: 0.7, delay: 1.3 }}
           className='mt-10'>
           <div className='relative inline-block group'>
-            <div className='absolute -inset-0.5 bg-gradient-to-r from-rose-500 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt'></div>
-            <button className='relative px-8 py-4 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600'>
+            <div className='absolute -inset-0.5 bg-gradient-to-r from-[#e73f2f] to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt'></div>
+            <button
+              onClick={() => {
+                const target = document.getElementById('features')
+                target?.scrollIntoView({ behavior: 'smooth' })
+              }}
+              className='hover:cursor-pointer relative px-8 py-4 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600'>
               <span className='flex items-center space-x-3 pr-6'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  className='h-6 w-6 text-rose-500 -rotate-6'
+                  className='h-6 w-6 text-[#e73f2f] -rotate-6'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'>
