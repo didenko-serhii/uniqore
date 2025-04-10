@@ -52,7 +52,7 @@ export const HeroSection = ({
         backgroundPosition: 'center',
       }}>
       {/* Decorative elements */}
-      <div className='absolute inset-0 overflow-hidden'>
+      <div className='absolute inset-0 overflow-hidden backdrop-blur-sm'>
         {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
