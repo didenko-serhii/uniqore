@@ -122,9 +122,7 @@ export function AnimatedGroup<T extends ElementType = 'div'>({
   const containerVariants = variants?.container || selectedVariants.container
   const itemVariants = variants?.item || selectedVariants.item
 
-  // Create the motion components more explicitly
   const MotionComponent = React.useMemo(() => motion(Tag as any), [Tag])
-
   const MotionChild = React.useMemo(() => motion(ChildTag as any), [ChildTag])
 
   return (

@@ -1,185 +1,185 @@
-import React from 'react'
-import Link from 'next/link'
-import { SparkleIcon, Sparkles } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import Image from 'next/image'
-import { TextEffect } from '@/components/ui/text-effect'
-import { AnimatedGroup } from '@/components/ui/animated-group'
+'use client'
 
-const itemVariant = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: 'spring',
-      bounce: 0.3,
-      duration: 2,
-    },
-  },
+import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+
+interface UniqueHeroProps {
+  subtitle?: string
+  backgroundImage?: string
 }
 
-export const HeroSection = () => {
+export const HeroSection = ({
+  subtitle = 'Creating the future through thoughtful experiences',
+  backgroundImage = '/hero.png',
+}: UniqueHeroProps) => {
+  const heroRef = useRef<HTMLDivElement>(null)
+  const letters = 'UNICORE'.split('')
+
+  // Parallax effect on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!heroRef.current) return
+      const scrollY = window.scrollY
+      const heroElement = heroRef.current
+      const letterElements = heroElement.querySelectorAll('.letter')
+      const decorElements = heroElement.querySelectorAll('.decor-element')
+
+      letterElements.forEach((el, index) => {
+        const speed = 0.15 + (index % 3) * 0.05
+        const yPos = scrollY * speed
+        ;(el as HTMLElement).style.transform = `translateY(${yPos}px)`
+      })
+
+      decorElements.forEach((el, index) => {
+        const speed = 0.15 + index * 0.05
+        const yPos = scrollY * speed
+        const xPos = scrollY * (index % 2 === 0 ? 0.05 : -0.05)
+        ;(el as HTMLElement).style.transform = `translate(${xPos}px, ${yPos}px)`
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <>
-      <main className='overflow-hidden'>
-        <div
-          aria-hidden
-          className='absolute inset-0 isolate hidden opacity-65 contain-strict lg:block'>
-          <div className='w-140 h-320 -translate-y-87.5 absolute left-0 top-0 -rotate-45 rounded-full bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,hsla(0,0%,85%,.08)_0,hsla(0,0%,55%,.02)_50%,hsla(0,0%,45%,0)_80%)]' />
-          <div className='h-320 absolute left-0 top-0 w-60 -rotate-45 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.06)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)] [translate:5%_-50%]' />
-          <div className='h-320 -translate-y-87.5 absolute left-0 top-0 w-60 -rotate-45 bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.04)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)]' />
-        </div>
-        <section>
-          <div className='relative pt-24 md:pt-36'>
-            <AnimatedGroup
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    delayChildren: 1,
-                  },
-                },
-              }}
-              className='absolute inset-0 -z-20'>
-              <Image
-                loading='lazy'
-                src='https://res.cloudinary.com/dg4jhba5c/image/upload/v1741605538/night-background_ni3vqb.jpg'
-                alt='background'
-                className='absolute inset-x-0 top-56 -z-20 hidden lg:top-32 dark:block'
-                width='3276'
-                height='4095'
-              />
-            </AnimatedGroup>
-            <div className='absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]'></div>
-            <div className='mx-auto max-w-7xl px-6'>
-              <div className='text-center sm:mx-auto lg:mr-auto lg:mt-0'>
-                <AnimatedGroup
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        delayChildren: 1,
-                      },
-                    },
+    <div
+      ref={heroRef}
+      className='relative w-full h-[90vh] overflow-hidden flex items-center justify-center'
+      style={{
+        background: `linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.75)), url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
+      {/* Decorative elements */}
+      <div className='absolute inset-0 overflow-hidden'>
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className='decor-element absolute rounded-full bg-white/10 backdrop-blur-md'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.7, 0.5] }}
+            transition={{
+              duration: 3,
+              delay: i * 0.5,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: 'reverse',
+            }}
+            style={{
+              width: `${100 + i * 50}px`,
+              height: `${100 + i * 50}px`,
+              top: `${10 + i * 15}%`,
+              left: `${(i % 2 === 0 ? 15 : 70) - i * 5}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+        {/* UNICORE title with special treatment */}
+        <div className='relative mb-12 py-10'>
+          <div className='flex justify-center items-center'>
+            {letters.map((letter, index) => (
+              <motion.div
+                key={index}
+                className='letter relative inline-block'
+                initial={{
+                  opacity: 0,
+                  y: 50 + (index % 3) * 20,
+                  rotateZ: index % 2 === 0 ? -5 : 5,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  rotateZ: 0,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}>
+                <span
+                  className={`text-7xl md:text-9xl font-black tracking-tight ${
+                    index === 3 ? 'text-rose-500' : 'text-white'
+                  }`}
+                  style={{
+                    textShadow:
+                      index === 3
+                        ? '0 0 30px rgba(244,63,94,0.8)'
+                        : '0 0 20px rgba(255,255,255,0.3)',
+                    display: 'inline-block',
+                    transform: `translateY(${
+                      index % 2 === 0 ? '-5px' : '5px'
+                    })`,
                   }}>
-                  <span className='hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950'>
-                    <span className='text-foreground text-sm'>
-                      University in your phone
-                    </span>
-                    <span className='dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700'></span>
-                    <div className='bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500'>
-                      <div className='flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0'>
-                        <span className='flex size-6'>
-                          <Sparkles className='m-auto size-3' />
-                        </span>
-                        <span className='flex size-6'>
-                          <SparkleIcon className='m-auto size-3' />
-                        </span>
-                      </div>
-                    </div>
-                  </span>
-                </AnimatedGroup>
-
-                <TextEffect
-                  preset='fade-in-blur'
-                  speedSegment={0.3}
-                  as='h1'
-                  className='mt-8 text-balance text-6xl md:text-7xl lg:mt-16 xl:text-[5.25rem]'>
-                  Uniqore
-                </TextEffect>
-                <TextEffect
-                  per='line'
-                  preset='fade-in-blur'
-                  speedSegment={0.3}
-                  delay={0.5}
-                  as='p'
-                  className='mx-auto mt-8 max-w-2xl text-balance text-lg'>
-                  Uniqore is a centralized digital platform designed to
-                  integrate and simplify access to university resources
-                  including news, events, articles, and internal announcements.
-                </TextEffect>
-
-                <AnimatedGroup
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.05,
-                        delayChildren: 0.75,
-                      },
-                    },
-                  }}
-                  itemVariants={itemVariant}
-                  className='mt-12 flex flex-col items-center justify-center gap-2 md:flex-row'>
-                  <div
-                    key={1}
-                    className='bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5'>
-                    <Button
-                      asChild
-                      size='lg'
-                      className='rounded-xl px-5 text-base'>
-                      <Link href='/news'>
-                        <span className='text-nowrap'>latest news</span>
-                      </Link>
-                    </Button>
-                  </div>
-                  <Button
-                    key={2}
-                    asChild
-                    size='lg'
-                    variant='ghost'
-                    className='h-10.5 rounded-xl px-5'>
-                    <Link href='#link'>
-                      <span className='text-nowrap'>recent events</span>
-                    </Link>
-                  </Button>
-                </AnimatedGroup>
-              </div>
-            </div>
-
-            <AnimatedGroup
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.05,
-                    delayChildren: 0.75,
-                  },
-                },
-              }}
-              itemVariants={itemVariant}>
-              <div className='relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20'>
-                <div
-                  aria-hidden
-                  className='bg-linear-to-b to-background absolute inset-0 z-10 from-transparent from-35%'
-                />
-                <div className='inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1'>
-                  <Image
-                    loading='lazy'
-                    className='bg-background aspect-15/8 relative hidden rounded-2xl dark:block'
-                    src='/hero.png'
-                    alt='app screen'
-                    width='2700'
-                    height='1440'
-                  />
-                  <Image
-                    loading='lazy'
-                    className='z-2 border-border/25 aspect-15/8 relative rounded-2xl border dark:hidden'
-                    src='/hero.png'
-                    alt='app screen'
-                    width='2700'
-                    height='1440'
-                  />
-                </div>
-              </div>
-            </AnimatedGroup>
+                  {letter}
+                </span>
+              </motion.div>
+            ))}
           </div>
-        </section>
-      </main>
-    </>
+
+          {/* Glowing line under the title */}
+          <motion.div
+            className='h-1 bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 rounded-full mx-auto mt-6'
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: '80%', opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            style={{
+              maxWidth: '500px',
+              boxShadow: '0 0 20px rgba(244,63,94,0.6)',
+            }}
+          />
+        </div>
+
+        {/* Subtitle with reveal animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1 }}
+          className='relative'>
+          <p className='text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed'>
+            {subtitle}
+          </p>
+        </motion.div>
+
+        {/* Call to action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.3 }}
+          className='mt-10'>
+          <div className='relative inline-block group'>
+            <div className='absolute -inset-0.5 bg-gradient-to-r from-rose-500 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt'></div>
+            <button className='relative px-8 py-4 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600'>
+              <span className='flex items-center space-x-3 pr-6'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='h-6 w-6 text-rose-500 -rotate-6'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'>
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
+                    d='M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 002 2v10a2 2 0 002 2zM9 9h6v6H9V9z'
+                  />
+                </svg>
+                <span className='text-gray-100 font-medium'>
+                  Discover UNICORE
+                </span>
+              </span>
+              <span className='pl-6 text-indigo-400 group-hover:text-gray-100 transition duration-200'>
+                Learn more &rarr;
+              </span>
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom gradient overlay */}
+      <div className='absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent'></div>
+    </div>
   )
 }
