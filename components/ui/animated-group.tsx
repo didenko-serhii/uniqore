@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { ReactNode, ElementType, ComponentPropsWithoutRef } from 'react'
 import { motion, Variants, MotionProps } from 'framer-motion'
@@ -121,8 +122,10 @@ export function AnimatedGroup<T extends ElementType = 'div'>({
   const containerVariants = variants?.container || selectedVariants.container
   const itemVariants = variants?.item || selectedVariants.item
 
-  const MotionComponent = motion(Tag)
-  const MotionChild = motion(ChildTag)
+  // Create the motion components more explicitly
+  const MotionComponent = React.useMemo(() => motion(Tag as any), [Tag])
+
+  const MotionChild = React.useMemo(() => motion(ChildTag as any), [ChildTag])
 
   return (
     <MotionComponent
