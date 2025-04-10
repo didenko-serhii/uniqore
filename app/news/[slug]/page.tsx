@@ -91,10 +91,10 @@ export default function SinglePost() {
 
             <p>
               Artificial intelligence has become an indispensable tool in a
-              developer&apos;s arsenal. From code completion to automated testing, AI
-              is streamlining workflows and boosting productivity. Tools like
-              GitHub Copilot and v0 have evolved to understand context better,
-              offering more accurate and relevant suggestions.
+              developer&apos;s arsenal. From code completion to automated
+              testing, AI is streamlining workflows and boosting productivity.
+              Tools like GitHub Copilot and v0 have evolved to understand
+              context better, offering more accurate and relevant suggestions.
             </p>
 
             <p>
@@ -112,9 +112,9 @@ export default function SinglePost() {
             <p>
               Edge computing continues to gain momentum, with more applications
               leveraging the power of distributed computing to deliver faster,
-              more reliable experiences. By processing data closer to where it&apos;s
-              needed, edge functions reduce latency and improve performance,
-              especially for global audiences.
+              more reliable experiences. By processing data closer to where
+              it&apos;s needed, edge functions reduce latency and improve
+              performance, especially for global audiences.
             </p>
 
             <p>
