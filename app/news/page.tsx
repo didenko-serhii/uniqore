@@ -115,7 +115,7 @@ export default function News() {
   const [filteredPosts, setFilteredPosts] = useState(blogPosts)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const [displayedPosts, setDisplayedPosts] = useState([])
+const [displayedPosts, setDisplayedPosts] = useState<typeof blogPosts>([])
 
   // Apply filters and sorting
   useEffect(() => {
