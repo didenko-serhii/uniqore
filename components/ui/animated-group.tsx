@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, ElementType } from 'react'
+import { ReactNode, ElementType, ComponentPropsWithoutRef } from 'react'
 import { motion, Variants, MotionProps } from 'framer-motion'
 import React from 'react'
 
@@ -88,7 +88,7 @@ const addDefaultVariants = (variants: Variants) => ({
   visible: { ...defaultItemVariants.visible, ...variants.visible },
 })
 
-type AnimatedGroupProps = {
+type AnimatedGroupProps<T extends ElementType = 'div'> = {
   children: ReactNode
   className?: string
   variants?: {
@@ -96,28 +96,33 @@ type AnimatedGroupProps = {
     item?: Variants
   }
   preset?: PresetType
-  as?: ElementType
-  asChild?: ElementType
-} & MotionProps
+  as?: T
+  asChild?: T
+} & MotionProps &
+  Omit<ComponentPropsWithoutRef<T>, 'as'>
 
-export function AnimatedGroup({
+export function AnimatedGroup<T extends ElementType = 'div'>({
   children,
   className,
   variants,
   preset,
-  as = 'div',
-  asChild = 'div',
+  as,
+  asChild,
   ...rest
-}: AnimatedGroupProps) {
+}: AnimatedGroupProps<T>) {
+  const Tag = as || 'div'
+  const ChildTag = asChild || 'div'
+
   const selectedVariants = {
     item: addDefaultVariants(preset ? presetVariants[preset] : {}),
     container: addDefaultVariants(defaultContainerVariants),
   }
+
   const containerVariants = variants?.container || selectedVariants.container
   const itemVariants = variants?.item || selectedVariants.item
 
-  const MotionComponent = motion(as)
-  const MotionChild = motion(asChild)
+  const MotionComponent = motion(Tag)
+  const MotionChild = motion(ChildTag)
 
   return (
     <MotionComponent
