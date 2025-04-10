@@ -24,7 +24,7 @@ export default function SinglePost() {
     const endDate = new Date('May 15, 2025 17:00:00')
 
     // Format dates for Google Calendar
-    const formatDate = (date) => {
+    const formatDate = (date: Date) => {
       return date.toISOString().replace(/-|:|\.\d+/g, '')
     }
 
